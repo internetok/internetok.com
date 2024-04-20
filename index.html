@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internet OK</title>
+    <style>
+      html {
+        font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji";
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        tab-size: 4;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .content {
+        text-align: center;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0c0c0c;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      .container {
+        animation: sunrise 10s forwards;
+      }
+      @keyframes sunrise {
+        0% {
+          background: black;
+        }
+        50% {
+          background: #55286f;
+        }
+        100% {
+          background: #fffb96;
+        }
+      }
+
+      .text-wrapper h1 {
+        animation: fadeOut 10s forwards;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .transition-screen {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: coverScreen 10s forwards;
+      }
+
+      @keyframes coverScreen {
+        0% {
+          width: 0;
+          background: rgba(0, 0, 0, 0);
+        }
+        50% {
+          width: 100%;
+          background: rgba(0, 0, 0, 1);
+        }
+        100% {
+          width: 100%;
+          background: rgba(0, 0, 0, 1);
+          display: none;
+        }
+      }
+
+      .final-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 5s forwards;
+        color: black;
+        z-index: -99;
+      }
+
+      .final-screen h1,
+      .final-screen p {
+        margin: 20px 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .glitch {
+        position: relative;
+        color: white;
+        font-size: 48px;
+        letter-spacing: 0.5em;
+        animation: glitch-skew 1s infinite linear alternate-reverse;
+      }
+
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        left: 0;
+      }
+
+      .glitch::before {
+        animation: glitch-anim 0.8s infinite linear alternate-reverse;
+        clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        color: #ff00ff;
+        z-index: -1;
+      }
+
+      .glitch::after {
+        animation: glitch-anim2 0.5s infinite linear alternate-reverse;
+        clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        color: #00ffff;
+        z-index: -2;
+      }
+
+      @keyframes glitch-anim {
+        0%,
+        100% {
+          transform: translate(0);
+        }
+        10%,
+        30%,
+        50%,
+        70% {
+          transform: translate(-5px, -5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translate(5px, 5px);
+        }
+      }
+
+      @keyframes glitch-anim2 {
+        0%,
+        100% {
+          transform: translate(0);
+        }
+        10%,
+        30%,
+        50%,
+        70% {
+          transform: translate(-10px, 10px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translate(10px, -10px);
+        }
+      }
+
+      @keyframes glitch-skew {
+        0%,
+        100% {
+          transform: skew(0deg);
+        }
+        10%,
+        30%,
+        50%,
+        70% {
+          transform: skew(5deg);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: skew(-5deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="text-wrapper">
+          <h1 id="headline" class="glitch" data-text="Is your Internet KO?">
+            Is your Internet KO?
+          </h1>
+        </div>
+        <div class="transition-screen" id="transitionScreen"></div>
+        <div class="final-screen" id="finalScreen" style="display: none">
+          <img
+            src="logo.png"
+            srcset="logo@2x.png 2x"
+            height="150px"
+            alt="Internet OK Logo"
+          />
+          <h1>We make it OK.</h1>
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScRx8XFvsmP84FT6_o3fJfvFbyGcN3Z72BqoWzqZHg_TYc-Rw/viewform?embedded=true"
+            width="640"
+            height="500"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            >Loading…</iframe
+          >
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+          document.getElementById("transitionScreen").style.display = "none";
+          document.getElementById("headline").style.display = "none";
+          document.getElementById("finalScreen").style.display = "flex";
+        }, 6000);
+      });
+    </script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VJQBWVBHNL"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-VJQBWVBHNL");
+    </script>
+  </body>
+</html>
