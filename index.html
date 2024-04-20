@@ -30,13 +30,33 @@
       }
 
       .container {
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #0c0c0c;
         color: #fff;
         overflow: hidden;
+        background: #fffb96;
+      }
+
+      .final-screen {
+        display: flex;
+        flex-flow: row wrap;
+        color: black;
+        z-index: -99;
+      }
+
+      .final-screen > * {
+        flex: 1 100%;
+      }
+
+      .final-screen .top {
+        height: 40%;
+      }
+
+      .final-screen h1,
+      .final-screen p {
+        margin: 20px 0;
       }
 
       .glitch {
@@ -153,29 +173,35 @@
           </h1>
         </div>
         <div class="transition-screen" id="transitionScreen"></div>
+
         <div class="final-screen" id="finalScreen" style="display: none">
-          <img
-            src="logo.png"
-            srcset="logo@2x.png 2x"
-            height="150px"
-            alt="Internet OK Logo"
-          />
-          <h1>We make it OK.</h1>
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScRx8XFvsmP84FT6_o3fJfvFbyGcN3Z72BqoWzqZHg_TYc-Rw/viewform?embedded=true"
-            width="640"
-            height="500"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            >Loading…</iframe
-          >
+          <div class="top">
+            <img
+              src="logo.png"
+              srcset="logo@2x.png 2x"
+              height="150px"
+              alt="Internet OK Logo"
+            />
+            <h1>We make it OK.</h1>
+          </div>
+          <div class="form">
+            <iframe
+              id="formIframe"
+              src="https://docs.google.com/forms/d/e/1FAIpQLScRx8XFvsmP84FT6_o3fJfvFbyGcN3Z72BqoWzqZHg_TYc-Rw/viewform?embedded=true"
+              width="100%"
+              height="1200px"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              >Loading…</iframe
+            >
+          </div>
         </div>
       </div>
     </div>
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(() => {
+        function animationStart() {
           var style = document.createElement("style");
           style.appendChild(document.createTextNode(""));
 
@@ -249,19 +275,7 @@
 
           style.sheet.insertRule(`
       .final-screen {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
         animation: fadeIn 5s forwards;
-        color: black;
-        z-index: -99;
-      }`);
-
-          style.sheet.insertRule(`
-      .final-screen h1,
-      .final-screen p {
-        margin: 20px 0;
       }`);
 
           style.sheet.insertRule(`
@@ -273,19 +287,41 @@
           opacity: 1;
         }
       }`);
-        }, 3000);
+        }
 
-        setTimeout(() => {
+        function animationEnd() {
           document.getElementById("transitionScreen").style.display = "none";
           document.getElementById("headline").style.display = "none";
           document.getElementById("finalScreen").style.display = "flex";
-        }, 9000);
+          document.getElementById("energyBall").style.display = "none";
+        }
+
+        // function resizeIframe() {
+        //   var iframe = document.getElementById("formIframe");
+        //   var actualWidth = iframe.offsetWidth;
+        //   var baseHeight = 1200;
+        //   var heigthFactor = 1470 / actualWidth;
+        //   iframe.height = `${baseHeight}px`;
+        // }
+
+        let skipAnimation = false;
+        if (skipAnimation == true) {
+          animationEnd();
+          //resizeIframe();
+        } else {
+          document.getElementsByClassName("container")[0].style.background =
+            "black";
+          setTimeout(() => {
+            animationStart();
+          }, 3000);
+
+          setTimeout(() => {
+            animationEnd();
+            //resizeIframe();
+          }, 9000);
+        }
 
         let hc = document.getElementById("energyBall");
-        setTimeout(() => {
-          hc.style.display = "none";
-        }, 9000);
-
         window.addEventListener("mousemove", function (e) {
           mouseX = e.screenX;
           mouseY = e.screenY;
