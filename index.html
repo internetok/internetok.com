@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="favicon.png" />
+
     <title>Internet OK</title>
     <style>
       html {
@@ -208,9 +210,24 @@
           transform: skew(-5deg);
         }
       }
+
+      #energyBall {
+        position: absolute;
+        top: 1%;
+        left: 2%;
+        background: radial-gradient(#fff, #ffffffe6, #fff0 60%);
+        mix-blend-mode: difference;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        border: none;
+        z-index: 999999;
+        pointer-events: none;
+      }
     </style>
   </head>
   <body>
+    <div id="energyBall"></div>
     <div class="container">
       <div class="content">
         <div class="text-wrapper">
@@ -246,6 +263,19 @@
           document.getElementById("headline").style.display = "none";
           document.getElementById("finalScreen").style.display = "flex";
         }, 6000);
+
+        let hc = document.getElementById("energyBall");
+        setTimeout(() => {
+          hc.style.display = "none";
+        }, 6000);
+
+        window.addEventListener("mousemove", function (e) {
+          mouseX = e.screenX;
+          mouseY = e.screenY;
+          const y = e.clientY - 200;
+          hc.style.left = e.clientX - 200 + "px";
+          hc.style.top = y + "px";
+        });
       });
     </script>
     <script
